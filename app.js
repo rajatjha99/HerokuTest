@@ -9,7 +9,8 @@ var express         = require("express"),
     Campground      = require("./models/campground"),
     Comment         = require("./models/comment"),
     User            = require("./models/user"),
-    seedDB          = require("./seeds");
+    seedDB          = require("./seeds"),
+    port            = process.env.PORT || 3000;
     
 //requiring routes
 var commentRoutes    = require("./routes/comments"),
@@ -47,6 +48,6 @@ app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(port, function(){
     console.log("The VibeCamp Server Has Started!"); 
 });

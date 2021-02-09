@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
 var express         = require("express"),
     app             = express(),
     bodyParser      = require("body-parser"),
@@ -47,6 +51,14 @@ app.use(function(req, res, next){
 app.use("/", indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
+
+app.get('/', (req, res) => {
+    res.render('landing')
+});
+
+app.all('*', (req, res, next) => {
+    next(new ExpressError('Page Not Found', 404))
+})
 
 app.listen(port, function(){
     console.log("The VibeCamp Server Has Started!"); 
